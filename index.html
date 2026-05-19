@@ -530,10 +530,12 @@ const API_KEY =
 
 function enterArchive(){
 
-const screen =
+const screen=
 document.getElementById('welcomeScreen');
 
 screen.style.opacity='0';
+screen.style.filter='blur(10px)';
+screen.style.transform='scale(1.05)';
 
 setTimeout(()=>{
 
@@ -542,7 +544,7 @@ screen.style.display='none';
 document.getElementById('mainApp')
 .style.display='flex';
 
-},700);
+},900);
 
 }
 
