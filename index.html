@@ -1,0 +1,234 @@
+# Sarthak-Universe-AI
+AI-powered novel memory and chat system for the Sarthak Universe.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sarthak Universe AI</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background:black;
+      color:white;
+      overflow-x:hidden;
+      min-height:100vh;
+      background:
+      radial-gradient(circle at top, rgba(255,140,0,0.2), transparent 40%),
+      radial-gradient(circle at bottom, rgba(120,0,0,0.3), transparent 50%),
+      black;
+    }
+
+    .container{
+      width:100%;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      padding:30px;
+      text-align:center;
+    }
+
+    .sect-symbol{
+      width:140px;
+      height:140px;
+      border-radius:50%;
+      border:2px solid rgba(255,170,0,0.5);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:70px;
+      margin-bottom:30px;
+      box-shadow:0 0 50px rgba(255,140,0,0.6);
+      background:rgba(255,255,255,0.03);
+      backdrop-filter:blur(10px);
+    }
+
+    h1{
+      font-size:55px;
+      background:linear-gradient(to right,#ffcc70,#ff7b00,#ffcc70);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      margin-bottom:10px;
+    }
+
+    .subtitle{
+      font-size:22px;
+      color:#ffcf99;
+      margin-bottom:40px;
+      opacity:0.9;
+    }
+
+    .description{
+      max-width:900px;
+      color:#d6c0aa;
+      line-height:1.8;
+      font-size:18px;
+      margin-bottom:60px;
+    }
+
+    .cards{
+      width:100%;
+      max-width:1200px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+      margin-bottom:60px;
+    }
+
+    .card{
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,140,0,0.2);
+      border-radius:25px;
+      padding:30px;
+      backdrop-filter:blur(10px);
+      transition:0.3s;
+      box-shadow:0 0 20px rgba(255,140,0,0.08);
+    }
+
+    .card:hover{
+      transform:translateY(-8px);
+      box-shadow:0 0 30px rgba(255,140,0,0.3);
+      border-color:rgba(255,170,0,0.5);
+    }
+
+    .card h2{
+      margin-top:15px;
+      margin-bottom:15px;
+      color:#ffbe69;
+    }
+
+    .card p{
+      color:#c7b39d;
+      line-height:1.6;
+    }
+
+    .icon{
+      font-size:50px;
+    }
+
+    .main-button{
+      padding:18px 45px;
+      border:none;
+      border-radius:20px;
+      background:linear-gradient(to right,#ff7b00,#ffb700);
+      color:black;
+      font-size:20px;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s;
+      box-shadow:0 0 30px rgba(255,140,0,0.5);
+    }
+
+    .main-button:hover{
+      transform:scale(1.05);
+      box-shadow:0 0 45px rgba(255,140,0,0.8);
+    }
+
+    footer{
+      margin-top:60px;
+      color:#8f7a65;
+      font-size:15px;
+    }
+
+  </style>
+
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="sect-symbol">
+      ☯
+    </div>
+
+    <h1>Sarthak Universe AI</h1>
+
+    <div class="subtitle">
+      Tool of The Greatest Author
+    </div>
+
+    <div class="description">
+      Sarthak Universe AI is a cultivation-based intelligent archive designed
+      specifically for the Sarthak Universe.
+
+      <br><br>
+
+      Remember chapters, track cultivation realms, explore hidden lore,
+      analyze characters, preserve timelines, and interact with an evolving
+      Heavenly Memory Core capable of understanding your entire world.
+
+      <br><br>
+
+      Enter the Immortal Archive and awaken the knowledge of countless realms.
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="icon">📜</div>
+
+        <h2>Chapter Memory</h2>
+
+        <p>
+          Preserve and search through thousands of novel chapters with
+          long-term memory and intelligent retrieval.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="icon">⚔️</div>
+
+        <h2>Character Records</h2>
+
+        <p>
+          Analyze characters, relationships, powers, and hidden lore
+          throughout the entire Sarthak Universe.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🔥</div>
+
+        <h2>Cultivation Realms</h2>
+
+        <p>
+          Track realms, techniques, sect systems, bloodlines,
+          spiritual powers, and heavenly progression.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="icon">⏳</div>
+
+        <h2>Timeline Archive</h2>
+
+        <p>
+          Maintain continuity across arcs, events, foreshadowing,
+          and the endless flow of your universe.
+        </p>
+      </div>
+
+    </div>
+
+    <button class="main-button">
+      Enter The Heavenly Archive →
+    </button>
+
+    <footer>
+      Sarthak Universe AI • Immortal Sect Archive System
+    </footer>
+
+  </div>
+
+</body>
+</html>
