@@ -1,5 +1,5 @@
 # Sarthak-Universe-AI
-AI-powered novel memory and chat system for theSarthak Universe.
+AI-powered novel memory and chat system for the Sarthak Universe.
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,53 +14,128 @@ AI-powered novel memory and chat system for theSarthak Universe.
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial, sans-serif;
+font-family:Arial,sans-serif;
 }
 
 body{
 background:
-radial-gradient(circle at top, #2a1200 0%, #120600 40%, black 100%);
+radial-gradient(circle at top,#2a1200 0%,#120600 40%,black 100%);
 color:white;
 overflow:hidden;
 height:100vh;
+}
+
+/* ================= WELCOME SCREEN ================= */
+
+#welcomeScreen{
+position:absolute;
+width:100%;
+height:100vh;
 display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+transition:1s;
+}
+
+.logo-circle{
+width:120px;
+height:120px;
+border-radius:50%;
+border:2px solid rgba(255,140,0,0.5);
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:50px;
+margin-bottom:30px;
+box-shadow:0 0 40px rgba(255,140,0,0.4);
+}
+
+#welcomeScreen h1{
+font-size:52px;
+color:#ff9d00;
+margin-bottom:10px;
+}
+
+.subtitle{
+font-size:20px;
+opacity:0.8;
+margin-bottom:30px;
+}
+
+.desc{
+max-width:850px;
+line-height:1.8;
+opacity:0.8;
+margin-bottom:50px;
+font-size:18px;
+}
+
+.enter-btn{
+padding:18px 45px;
+font-size:18px;
+border:none;
+border-radius:16px;
+cursor:pointer;
+background:linear-gradient(to right,#ff8800,#ffb347);
+color:black;
+font-weight:bold;
+transition:0.4s;
+}
+
+.enter-btn:hover{
+transform:scale(1.05);
+box-shadow:0 0 30px rgba(255,140,0,0.5);
+}
+
+/* ================= AI INTERFACE ================= */
+
+#app{
+display:none;
+width:100%;
+height:100vh;
 }
 
 .sidebar{
-width:260px;
-background:rgba(0,0,0,0.6);
-border-right:1px solid rgba(255,140,0,0.3);
+width:270px;
+background:rgba(0,0,0,0.55);
+border-right:1px solid rgba(255,140,0,0.2);
 padding:20px;
 display:flex;
 flex-direction:column;
-gap:18px;
-backdrop-filter:blur(10px);
+backdrop-filter:blur(12px);
 }
 
-.logo{
+.sidebar-title{
 text-align:center;
-padding:20px 10px;
-border-bottom:1px solid rgba(255,140,0,0.2);
+margin-bottom:30px;
 }
 
-.logo h1{
-font-size:26px;
+.sidebar-title h2{
 color:#ff9d00;
+margin-bottom:8px;
 }
 
-.logo p{
+.sidebar-title p{
+opacity:0.6;
 font-size:13px;
-opacity:0.7;
-margin-top:8px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:14px;
 }
 
 .menu-btn{
 padding:16px;
 border-radius:14px;
 background:rgba(255,140,0,0.08);
-border:1px solid rgba(255,140,0,0.15);
-cursor:pointer;
+border:1px solid rgba(255,140,0,0.12);
 transition:0.3s;
+cursor:pointer;
 }
 
 .menu-btn:hover{
@@ -77,48 +152,47 @@ height:100vh;
 
 .topbar{
 height:80px;
-border-bottom:1px solid rgba(255,140,0,0.2);
 display:flex;
-align-items:center;
 justify-content:space-between;
-padding:0 30px;
+align-items:center;
+padding:0 25px;
+border-bottom:1px solid rgba(255,140,0,0.15);
 background:rgba(0,0,0,0.3);
-backdrop-filter:blur(10px);
 }
 
 .topbar h2{
 color:#ffb347;
 }
 
-.memory-core{
-padding:10px 18px;
-border-radius:20px;
+.memory-status{
+padding:10px 16px;
+border-radius:18px;
 background:rgba(255,140,0,0.1);
 border:1px solid rgba(255,140,0,0.2);
+font-size:13px;
 color:#ffb347;
-font-size:14px;
 }
 
 .chat-container{
 flex:1;
-padding:30px;
 overflow-y:auto;
+padding:25px;
 display:flex;
 flex-direction:column;
 gap:20px;
 }
 
 .message{
-max-width:70%;
 padding:18px;
-border-radius:20px;
-line-height:1.7;
+border-radius:18px;
+max-width:75%;
+line-height:1.8;
 animation:fadeIn 0.5s ease;
 }
 
 .ai{
-background:rgba(255,140,0,0.12);
-border:1px solid rgba(255,140,0,0.2);
+background:rgba(255,140,0,0.1);
+border:1px solid rgba(255,140,0,0.18);
 align-self:flex-start;
 }
 
@@ -129,9 +203,9 @@ align-self:flex-end;
 
 .input-area{
 padding:20px;
-border-top:1px solid rgba(255,140,0,0.2);
 display:flex;
 gap:15px;
+border-top:1px solid rgba(255,140,0,0.15);
 background:rgba(0,0,0,0.3);
 }
 
@@ -161,6 +235,53 @@ transition:0.3s;
 transform:scale(1.05);
 }
 
+/* ================= MOBILE ================= */
+
+.mobile-menu{
+display:none;
+font-size:28px;
+cursor:pointer;
+}
+
+@media(max-width:900px){
+
+#welcomeScreen h1{
+font-size:38px;
+}
+
+.subtitle{
+font-size:17px;
+}
+
+.desc{
+font-size:15px;
+}
+
+.sidebar{
+position:absolute;
+left:-280px;
+top:0;
+height:100%;
+z-index:1000;
+transition:0.4s;
+}
+
+.sidebar.active{
+left:0;
+}
+
+.mobile-menu{
+display:block;
+}
+
+.message{
+max-width:95%;
+}
+
+}
+
+/* ================= ANIMATION ================= */
+
 @keyframes fadeIn{
 from{
 opacity:0;
@@ -172,46 +293,82 @@ transform:translateY(0);
 }
 }
 
-@media(max-width:900px){
-
-.sidebar{
-display:none;
-}
-
-.message{
-max-width:90%;
-}
-
-}
-
 </style>
 </head>
 
 <body>
 
-<div class="sidebar">
+<!-- ================= WELCOME SCREEN ================= -->
 
-<div class="logo">
-<h1>Sarthak Universe AI</h1>
-<p>Tool Of The Greatest Author</p>
+<div id="welcomeScreen">
+
+<div class="logo-circle">
+☯
 </div>
 
+<h1>Sarthak Universe AI</h1>
+
+<div class="subtitle">
+Tool Of The Greatest Author
+</div>
+
+<div class="desc">
+Sarthak Universe AI is an immortal archive forged to preserve the entirety of the Sarthak Universe.
+
+Analyze characters, remember chapters, track cultivation realms, preserve timelines, explore hidden lore, and awaken the Heavenly Memory Core capable of understanding your entire world.
+</div>
+
+<button class="enter-btn" onclick="enterArchive()">
+Enter The Heavenly Archive →
+</button>
+
+</div>
+
+<!-- ================= AI SYSTEM ================= -->
+
+<div id="app">
+
+<div class="sidebar" id="sidebar">
+
+<div class="sidebar-title">
+<h2>Sarthak Universe AI</h2>
+<p>Immortal Archive System</p>
+</div>
+
+<div class="menu">
+
 <div class="menu-btn">💬 Heavenly Chat Hall</div>
+
 <div class="menu-btn">📜 Chapter Archive</div>
+
 <div class="menu-btn">⚔️ Character Records</div>
+
 <div class="menu-btn">🔥 Cultivation Realms</div>
+
 <div class="menu-btn">⏳ Timeline Engine</div>
+
+</div>
 
 </div>
 
 <div class="main">
 
 <div class="topbar">
+
+<div style="display:flex;align-items:center;gap:15px;">
+
+<div class="mobile-menu" onclick="toggleSidebar()">
+☰
+</div>
+
 <h2>Heavenly Memory Core</h2>
 
-<div class="memory-core">
+</div>
+
+<div class="memory-status">
 Memory Active • 12,847 Lore Threads Indexed
 </div>
+
 </div>
 
 <div class="chat-container">
@@ -219,32 +376,58 @@ Memory Active • 12,847 Lore Threads Indexed
 <div class="message ai">
 Welcome back, Sect Master.
 
-The Heavenly Archive has successfully synchronized with the Sarthak Universe.
+The Heavenly Archive has synchronized successfully with the Sarthak Universe.
 
-All timelines, cultivation realms, character records, and chapter memories are standing by for analysis.
+All cultivation records, character histories, timelines, hidden lore, and chapter memories are prepared for analysis.
 </div>
 
 <div class="message user">
-Show me King Tian Long's current cultivation progression.
+Show me King Tian Long's cultivation progression.
 </div>
 
 <div class="message ai">
-King Tian Long currently stands among the highest powers of the Sanatan Flame Sect.
-
-His cultivation path has evolved beyond conventional flame laws and now touches ancient sovereign-level authority tied to destiny, spiritual pressure, and heavenly command.
+King Tian Long has surpassed conventional flame path cultivation and now walks a sovereign-level destiny route tied to heavenly authority and spiritual domination.
 </div>
 
 </div>
 
 <div class="input-area">
+
 <input type="text" placeholder="Ask the Heavenly Archive anything...">
 
 <button class="send-btn">
 Enter
 </button>
+
 </div>
 
 </div>
+
+</div>
+
+<script>
+
+function enterArchive(){
+
+document.getElementById("welcomeScreen").style.opacity="0";
+
+setTimeout(()=>{
+
+document.getElementById("welcomeScreen").style.display="none";
+
+document.getElementById("app").style.display="flex";
+
+},800);
+
+}
+
+function toggleSidebar(){
+
+document.getElementById("sidebar").classList.toggle("active");
+
+}
+
+</script>
 
 </body>
 </html>
