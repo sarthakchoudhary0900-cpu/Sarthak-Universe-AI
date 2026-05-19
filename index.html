@@ -645,14 +645,24 @@ typing.remove();
 
 /* RESPONSE */
 
+console.log(data);
+
 const aiText =
 
-data?.candidates?.[0]
-?.content?.parts?.[0]?.text
+data.candidates &&
+data.candidates[0] &&
+data.candidates[0].content &&
+data.candidates[0].content.parts &&
+data.candidates[0].content.parts[0] &&
+data.candidates[0].content.parts[0].text
 
-||
+?
 
-"⚠️ Heavenly Memory Core failed to respond.";
+data.candidates[0].content.parts[0].text
+
+:
+
+JSON.stringify(data);
 
 /* AI MESSAGE */
 
