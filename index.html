@@ -77,7 +77,8 @@ align-items:center;
 flex-direction:column;
 padding:20px;
 text-align:center;
-transition:0.8s;
+transition:1s;
+backdrop-filter:blur(0px);
 }
 
 .logo{
@@ -142,6 +143,18 @@ transform:scale(1.05);
 display:none;
 height:100vh;
 width:100%;
+animation:fadeMain 1s ease;
+}
+
+@keyframes fadeMain{
+from{
+opacity:0;
+transform:scale(1.02);
+}
+to{
+opacity:1;
+transform:scale(1);
+}
 }
 
 /* SIDEBAR */
@@ -174,6 +187,7 @@ transition:0.3s;
 .menuBtn:hover{
 background:rgba(255,140,0,0.15);
 transform:translateX(5px);
+box-shadow:0 0 15px rgba(255,140,0,0.2);
 }
 
 /* CHAT AREA */
@@ -195,6 +209,7 @@ align-items:center;
 justify-content:space-between;
 padding:0 25px;
 background:rgba(0,0,0,0.5);
+backdrop-filter:blur(8px);
 }
 
 .topBar h1{
@@ -220,26 +235,30 @@ padding-bottom:130px;
 display:flex;
 flex-direction:column;
 gap:20px;
+scroll-behavior:smooth;
 }
 
 .message{
 max-width:75%;
 padding:18px;
 border-radius:18px;
-line-height:1.6;
+line-height:1.7;
 animation:fadeIn 0.4s ease;
+backdrop-filter:blur(6px);
 }
 
 .user{
 align-self:flex-end;
 background:rgba(255,140,0,0.15);
 border:1px solid rgba(255,140,0,0.2);
+box-shadow:0 0 15px rgba(255,140,0,0.1);
 }
 
 .ai{
 align-self:flex-start;
 background:rgba(255,255,255,0.05);
 border:1px solid rgba(255,255,255,0.08);
+box-shadow:0 0 18px rgba(255,140,0,0.08);
 }
 
 @keyframes fadeIn{
@@ -253,21 +272,54 @@ transform:translateY(0);
 }
 }
 
-/* INPUT AREA */
+/* TYPING */
+
+.typing{
+display:flex;
+gap:5px;
+padding:5px 0;
+}
+
+.dot{
+width:8px;
+height:8px;
+background:orange;
+border-radius:50%;
+animation:bounce 1s infinite;
+}
+
+.dot:nth-child(2){
+animation-delay:0.2s;
+}
+
+.dot:nth-child(3){
+animation-delay:0.4s;
+}
+
+@keyframes bounce{
+0%,80%,100%{
+transform:scale(0.7);
+opacity:0.5;
+}
+40%{
+transform:scale(1.2);
+opacity:1;
+}
+}
+
+/* INPUT */
 
 .inputArea{
 position:fixed;
 bottom:0;
 left:250px;
 right:0;
-
 padding:15px;
 display:flex;
 gap:12px;
-
 background:rgba(0,0,0,0.95);
 border-top:1px solid rgba(255,140,0,0.2);
-
+backdrop-filter:blur(10px);
 z-index:999;
 }
 
@@ -290,10 +342,12 @@ border-radius:14px;
 cursor:pointer;
 font-weight:bold;
 transition:0.3s;
+box-shadow:0 0 15px rgba(255,140,0,0.3);
 }
 
 .sendBtn:hover{
 transform:scale(1.05);
+box-shadow:0 0 25px rgba(255,140,0,0.5);
 }
 
 /* MOBILE */
@@ -338,9 +392,7 @@ font-size:22px;
 
 <script>
 
-/* PARTICLES */
-
-for(let i=0;i<50;i++){
+for(let i=0;i<55;i++){
 
 const particle=document.createElement('div');
 
@@ -360,7 +412,7 @@ document.body.appendChild(particle);
 
 </script>
 
-<!-- WELCOME SCREEN -->
+<!-- WELCOME -->
 
 <div id="welcomeScreen">
 
@@ -391,7 +443,7 @@ Enter The Heavenly Archive →
 
 </div>
 
-<!-- MAIN APP -->
+<!-- MAIN -->
 
 <div id="mainApp">
 
@@ -415,7 +467,7 @@ Enter The Heavenly Archive →
 
 </div>
 
-<!-- CHAT AREA -->
+<!-- CHAT -->
 
 <div class="chatArea">
 
@@ -432,7 +484,7 @@ Enter The Heavenly Archive →
 <div class="messages" id="messages">
 
 <div class="message ai">
-⚪ Welcome back, Sect Master.
+☯ Welcome back, Sect Master.
 The Heavenly Archive is online and
 awaiting your command.
 </div>
@@ -467,18 +519,21 @@ Send
 
 function enterArchive(){
 
-document.getElementById('welcomeScreen')
-.style.opacity='0';
+const screen=
+document.getElementById('welcomeScreen');
+
+screen.style.opacity='0';
+screen.style.filter='blur(10px)';
+screen.style.transform='scale(1.05)';
 
 setTimeout(()=>{
 
-document.getElementById('welcomeScreen')
-.style.display='none';
+screen.style.display='none';
 
 document.getElementById('mainApp')
 .style.display='flex';
 
-},700);
+},900);
 
 }
 
@@ -494,7 +549,7 @@ const text=input.value.trim();
 
 if(text==='') return;
 
-/* USER MESSAGE */
+/* USER */
 
 const userMsg=document.createElement('div');
 
@@ -506,34 +561,71 @@ messages.appendChild(userMsg);
 
 input.value='';
 
-/* AUTO SCROLL */
+messages.scrollTop=
+messages.scrollHeight;
+
+/* TYPING */
+
+const typing=document.createElement('div');
+
+typing.className='message ai';
+
+typing.id='typingBox';
+
+typing.innerHTML=`
+<div class="typing">
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+</div>
+`;
+
+messages.appendChild(typing);
 
 messages.scrollTop=
 messages.scrollHeight;
 
-/* AI REPLY */
+/* AI RESPONSE */
 
 setTimeout(()=>{
+
+typing.remove();
 
 const aiMsg=document.createElement('div');
 
 aiMsg.className='message ai';
 
-aiMsg.innerText=
-'🔥 Heavenly Memory Core is analyzing your request regarding: "' +
-text +
-'"';
-
 messages.appendChild(aiMsg);
+
+const response=
+'🔥 Heavenly Memory Core has analyzed your request regarding: "' +
+text +
+'". Further synchronization with the Sarthak Universe is underway.';
+
+let index=0;
+
+function typeEffect(){
+
+if(index<response.length){
+
+aiMsg.innerHTML+=response.charAt(index);
+
+index++;
 
 messages.scrollTop=
 messages.scrollHeight;
 
-},900);
+setTimeout(typeEffect,20);
 
 }
 
-/* ENTER KEY */
+}
+
+typeEffect();
+
+},1400);
+
+}
 
 document
 .getElementById('messageInput')
