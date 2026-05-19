@@ -14,19 +14,45 @@ AI-powered novel memory and chat system for the Sarthak Universe.
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial, sans-serif;
+font-family:Arial,sans-serif;
 }
 
 body{
 background:black;
-color:white;
 overflow:hidden;
 height:100vh;
+color:white;
 background:
 radial-gradient(circle at top,#351000,#000);
 }
 
-/* LANDING PAGE */
+/* PARTICLES */
+
+.particle{
+position:absolute;
+width:4px;
+height:4px;
+background:orange;
+border-radius:50%;
+opacity:0.4;
+animation:float 10s linear infinite;
+}
+
+@keyframes float{
+0%{
+transform:translateY(100vh);
+opacity:0;
+}
+10%{
+opacity:0.5;
+}
+100%{
+transform:translateY(-100vh);
+opacity:0;
+}
+}
+
+/* WELCOME */
 
 #welcomeScreen{
 position:absolute;
@@ -38,22 +64,22 @@ justify-content:center;
 align-items:center;
 text-align:center;
 padding:20px;
-transition:1s;
+z-index:2;
 }
 
 .logo{
-width:90px;
-height:90px;
+width:100px;
+height:100px;
 border-radius:50%;
 background:#111;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:40px;
-box-shadow:0 0 25px orange;
+font-size:42px;
 border:2px solid orange;
-margin-bottom:25px;
+box-shadow:0 0 25px orange;
 animation:pulse 2s infinite;
+margin-bottom:25px;
 }
 
 @keyframes pulse{
@@ -70,14 +96,14 @@ margin-bottom:10px;
 }
 
 .subtitle{
+opacity:0.7;
+margin-bottom:20px;
 font-size:18px;
-opacity:0.8;
-margin-bottom:25px;
 }
 
 .description{
 max-width:700px;
-line-height:1.7;
+line-height:1.8;
 opacity:0.8;
 margin-bottom:40px;
 }
@@ -85,37 +111,41 @@ margin-bottom:40px;
 .enterBtn{
 padding:16px 40px;
 background:orange;
-border:none;
-border-radius:14px;
+color:black;
 font-size:18px;
 font-weight:bold;
+border:none;
+border-radius:14px;
 cursor:pointer;
 transition:0.3s;
+box-shadow:0 0 20px rgba(255,140,0,0.4);
 }
 
 .enterBtn:hover{
 transform:scale(1.05);
-box-shadow:0 0 20px orange;
 }
 
-/* MAIN APP */
+/* APP */
 
 #app{
 display:none;
 width:100%;
 height:100vh;
+position:relative;
+z-index:2;
 }
 
 /* SIDEBAR */
 
 .sidebar{
 width:260px;
-background:rgba(0,0,0,0.8);
+background:rgba(0,0,0,0.85);
 border-right:1px solid #442000;
 padding:20px;
 display:flex;
 flex-direction:column;
 gap:14px;
+overflow-y:auto;
 }
 
 .sidebar h2{
@@ -126,9 +156,9 @@ margin-bottom:10px;
 .menuBtn{
 background:#1a0a00;
 border:1px solid #442000;
-color:white;
 padding:16px;
-border-radius:12px;
+border-radius:14px;
+color:white;
 cursor:pointer;
 transition:0.3s;
 text-align:left;
@@ -138,9 +168,10 @@ font-size:15px;
 .menuBtn:hover{
 background:#2b1200;
 transform:translateX(5px);
+box-shadow:0 0 10px rgba(255,140,0,0.3);
 }
 
-/* CHAT AREA */
+/* MAIN */
 
 .main{
 flex:1;
@@ -149,13 +180,16 @@ flex-direction:column;
 height:100vh;
 }
 
+/* TOPBAR */
+
 .topbar{
-padding:20px;
+padding:18px;
 border-bottom:1px solid #442000;
-background:rgba(0,0,0,0.5);
 display:flex;
 justify-content:space-between;
 align-items:center;
+background:rgba(0,0,0,0.5);
+backdrop-filter:blur(10px);
 }
 
 .topbar h1{
@@ -171,6 +205,8 @@ border:1px solid #553000;
 font-size:14px;
 }
 
+/* CHAT */
+
 .chatArea{
 flex:1;
 overflow-y:auto;
@@ -183,23 +219,24 @@ gap:20px;
 /* MESSAGES */
 
 .message{
-max-width:80%;
 padding:18px;
 border-radius:18px;
+max-width:80%;
 line-height:1.7;
 animation:fadeIn 0.4s ease;
-}
-
-.user{
-align-self:flex-end;
-background:#2a1400;
-border:1px solid #553000;
+position:relative;
 }
 
 .ai{
 align-self:flex-start;
 background:#1a0a00;
 border:1px solid #442000;
+}
+
+.user{
+align-self:flex-end;
+background:#2b1200;
+border:1px solid #553000;
 }
 
 @keyframes fadeIn{
@@ -216,33 +253,51 @@ transform:translateY(0);
 /* INPUT */
 
 .inputArea{
-padding:20px;
+padding:16px;
 display:flex;
 gap:12px;
 border-top:1px solid #442000;
-background:black;
+background:rgba(0,0,0,0.9);
 }
 
 .inputArea input{
 flex:1;
 padding:16px;
-border:none;
-outline:none;
 background:#140700;
-color:white;
-border-radius:14px;
-font-size:16px;
 border:1px solid #442000;
+border-radius:14px;
+color:white;
+font-size:16px;
+outline:none;
 }
 
 .sendBtn{
 padding:16px 24px;
-border:none;
 background:orange;
-color:black;
-font-weight:bold;
+border:none;
 border-radius:14px;
+font-weight:bold;
 cursor:pointer;
+transition:0.3s;
+}
+
+.sendBtn:hover{
+transform:scale(1.05);
+box-shadow:0 0 15px orange;
+}
+
+/* TYPING */
+
+.typing{
+opacity:0.7;
+font-style:italic;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+0%{opacity:0.3;}
+50%{opacity:1;}
+100%{opacity:0.3;}
 }
 
 /* MOBILE */
@@ -274,12 +329,24 @@ min-width:180px;
 font-size:36px;
 }
 
+.topbar h1{
+font-size:22px;
+}
+
+.message{
+max-width:90%;
+}
+
 }
 
 </style>
 </head>
 
 <body>
+
+<!-- PARTICLES -->
+
+<div id="particles"></div>
 
 <!-- WELCOME -->
 
@@ -296,7 +363,7 @@ Tool Of The Greatest Author
 </div>
 
 <div class="description">
-An immortal archive forged to preserve the entirety of the Sarthak Universe. Analyze characters, remember chapters, track cultivation realms, preserve timelines, and awaken the Heavenly Memory Core.
+The Heavenly Memory Core has awakened. Preserve timelines, analyze cultivation paths, explore hidden lore, and synchronize the entire Sarthak Universe through the Immortal Archive.
 </div>
 
 <button class="enterBtn" onclick="enterArchive()">
@@ -305,7 +372,7 @@ Enter The Heavenly Archive →
 
 </div>
 
-<!-- MAIN APP -->
+<!-- APP -->
 
 <div id="app">
 
@@ -334,7 +401,7 @@ Enter The Heavenly Archive →
 <h1>Heavenly Memory Core</h1>
 
 <div class="memory">
-Memory Active • 12,847 Lore Threads
+12,847 Lore Threads Active
 </div>
 
 </div>
@@ -342,7 +409,7 @@ Memory Active • 12,847 Lore Threads
 <div class="chatArea" id="chatArea">
 
 <div class="message ai">
-Welcome back, Sect Master. The Heavenly Archive is online and awaiting your command.
+☯ Welcome back, Sect Master. The Heavenly Archive is awaiting your command.
 </div>
 
 </div>
@@ -352,7 +419,7 @@ Welcome back, Sect Master. The Heavenly Archive is online and awaiting your comm
 <input
 type="text"
 id="userInput"
-placeholder="Ask the Heavenly Archive anything..."
+placeholder="Ask the Heavenly Archive..."
 >
 
 <button class="sendBtn" onclick="sendMessage()">
@@ -367,6 +434,8 @@ Send
 
 <script>
 
+/* ENTER */
+
 function enterArchive(){
 
 document.getElementById("welcomeScreen").style.display="none";
@@ -374,6 +443,8 @@ document.getElementById("welcomeScreen").style.display="none";
 document.getElementById("app").style.display="flex";
 
 }
+
+/* SEND */
 
 function sendMessage(){
 
@@ -385,37 +456,49 @@ if(text==="") return;
 
 const chat=document.getElementById("chatArea");
 
-/* USER MESSAGE */
+/* USER */
 
-const userMsg=document.createElement("div");
+const user=document.createElement("div");
 
-userMsg.className="message user";
+user.className="message user";
 
-userMsg.innerText=text;
+user.innerText=text;
 
-chat.appendChild(userMsg);
-
-/* CLEAR INPUT */
+chat.appendChild(user);
 
 input.value="";
+
+chat.scrollTop=chat.scrollHeight;
+
+/* TYPING */
+
+const typing=document.createElement("div");
+
+typing.className="message ai typing";
+
+typing.innerText="Heavenly Memory Core is analyzing...";
+
+chat.appendChild(typing);
+
+chat.scrollTop=chat.scrollHeight;
 
 /* AI RESPONSE */
 
 setTimeout(()=>{
 
-const aiMsg=document.createElement("div");
+typing.remove();
 
-aiMsg.className="message ai";
+const ai=document.createElement("div");
 
-aiMsg.innerText=getAIResponse(text);
+ai.className="message ai";
 
-chat.appendChild(aiMsg);
+ai.innerText=getAIResponse(text);
 
-chat.scrollTop=chat.scrollHeight;
-
-},700);
+chat.appendChild(ai);
 
 chat.scrollTop=chat.scrollHeight;
+
+},1500);
 
 }
 
@@ -427,23 +510,43 @@ text=text.toLowerCase();
 
 if(text.includes("king tian long")){
 
-return "King Tian Long currently stands among the strongest existences within the Sanatan Flame Sect. His cultivation path has transcended conventional flame laws and now approaches sovereign-level authority.";
+return "King Tian Long has surpassed conventional flame cultivation and now walks a sovereign-level destiny path tied to heavenly authority.";
 
 }
 
 if(text.includes("shaurya")){
 
-return "Shaurya remains the central existence of the Sarthak Universe timeline. Multiple destiny threads appear connected to his evolution.";
+return "Shaurya remains the central existence of the Sarthak Universe timeline. Multiple destiny threads continue converging around his evolution.";
 
 }
 
 if(text.includes("sect")){
 
-return "The Sanatan Flame Sect continues expanding its influence across higher realms while rebuilding its heavenly foundations.";
+return "The Sanatan Flame Sect continues expanding across higher realms while rebuilding its immortal foundations.";
 
 }
 
-return "The Heavenly Memory Core has analyzed your request. Lore synchronization complete.";
+return "The Heavenly Memory Core has completed analysis of your request. Lore synchronization successful.";
+
+}
+
+/* PARTICLES */
+
+const particles=document.getElementById("particles");
+
+for(let i=0;i<40;i++){
+
+const p=document.createElement("div");
+
+p.className="particle";
+
+p.style.left=Math.random()*100+"vw";
+
+p.style.animationDuration=(5+Math.random()*10)+"s";
+
+p.style.animationDelay=Math.random()*5+"s";
+
+particles.appendChild(p);
 
 }
 
