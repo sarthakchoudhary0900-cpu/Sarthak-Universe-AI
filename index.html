@@ -30,12 +30,12 @@ radial-gradient(circle at top,#351000,#000);
 
 .particle{
 position:absolute;
-width:4px;
-height:4px;
+width:3px;
+height:3px;
 background:orange;
 border-radius:50%;
 opacity:0.4;
-animation:float 10s linear infinite;
+animation:float linear infinite;
 }
 
 @keyframes float{
@@ -64,7 +64,8 @@ justify-content:center;
 align-items:center;
 text-align:center;
 padding:20px;
-z-index:2;
+z-index:5;
+transition:1s;
 }
 
 .logo{
@@ -84,7 +85,7 @@ margin-bottom:25px;
 
 @keyframes pulse{
 0%{box-shadow:0 0 15px orange;}
-50%{box-shadow:0 0 40px orange;}
+50%{box-shadow:0 0 45px orange;}
 100%{box-shadow:0 0 15px orange;}
 }
 
@@ -96,9 +97,9 @@ margin-bottom:10px;
 }
 
 .subtitle{
-opacity:0.7;
-margin-bottom:20px;
+opacity:0.8;
 font-size:18px;
+margin-bottom:20px;
 }
 
 .description{
@@ -109,13 +110,12 @@ margin-bottom:40px;
 }
 
 .enterBtn{
-padding:16px 40px;
+padding:18px 40px;
 background:orange;
-color:black;
-font-size:18px;
-font-weight:bold;
 border:none;
 border-radius:14px;
+font-size:18px;
+font-weight:bold;
 cursor:pointer;
 transition:0.3s;
 box-shadow:0 0 20px rgba(255,140,0,0.4);
@@ -139,12 +139,13 @@ z-index:2;
 
 .sidebar{
 width:260px;
-background:rgba(0,0,0,0.85);
+background:rgba(0,0,0,0.88);
 border-right:1px solid #442000;
 padding:20px;
 display:flex;
 flex-direction:column;
 gap:14px;
+transition:0.4s;
 overflow-y:auto;
 }
 
@@ -168,7 +169,7 @@ font-size:15px;
 .menuBtn:hover{
 background:#2b1200;
 transform:translateX(5px);
-box-shadow:0 0 10px rgba(255,140,0,0.3);
+box-shadow:0 0 15px rgba(255,140,0,0.3);
 }
 
 /* MAIN */
@@ -183,13 +184,29 @@ height:100vh;
 /* TOPBAR */
 
 .topbar{
-padding:18px;
+padding:16px;
 border-bottom:1px solid #442000;
 display:flex;
 justify-content:space-between;
 align-items:center;
 background:rgba(0,0,0,0.5);
 backdrop-filter:blur(10px);
+}
+
+.leftTop{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.menuToggle{
+display:none;
+background:#1a0a00;
+border:1px solid #442000;
+color:white;
+padding:10px 14px;
+border-radius:10px;
+cursor:pointer;
 }
 
 .topbar h1{
@@ -213,30 +230,39 @@ overflow-y:auto;
 padding:20px;
 display:flex;
 flex-direction:column;
-gap:20px;
+gap:22px;
 }
 
 /* MESSAGES */
 
 .message{
 padding:18px;
-border-radius:18px;
-max-width:80%;
-line-height:1.7;
+border-radius:20px;
+max-width:85%;
+line-height:1.8;
 animation:fadeIn 0.4s ease;
 position:relative;
+font-size:16px;
 }
 
 .ai{
 align-self:flex-start;
 background:#1a0a00;
 border:1px solid #442000;
+box-shadow:0 0 10px rgba(255,140,0,0.08);
 }
 
 .user{
 align-self:flex-end;
 background:#2b1200;
 border:1px solid #553000;
+box-shadow:0 0 10px rgba(255,140,0,0.12);
+}
+
+.avatar{
+font-size:14px;
+opacity:0.7;
+margin-bottom:8px;
 }
 
 @keyframes fadeIn{
@@ -262,20 +288,20 @@ background:rgba(0,0,0,0.9);
 
 .inputArea input{
 flex:1;
-padding:16px;
+padding:18px;
 background:#140700;
 border:1px solid #442000;
-border-radius:14px;
+border-radius:16px;
 color:white;
 font-size:16px;
 outline:none;
 }
 
 .sendBtn{
-padding:16px 24px;
+padding:18px 24px;
 background:orange;
 border:none;
-border-radius:14px;
+border-radius:16px;
 font-weight:bold;
 cursor:pointer;
 transition:0.3s;
@@ -283,7 +309,7 @@ transition:0.3s;
 
 .sendBtn:hover{
 transform:scale(1.05);
-box-shadow:0 0 15px orange;
+box-shadow:0 0 20px orange;
 }
 
 /* TYPING */
@@ -304,37 +330,37 @@ animation:blink 1s infinite;
 
 @media(max-width:768px){
 
-#app{
-flex-direction:column;
-}
-
 .sidebar{
-width:100%;
-height:auto;
-flex-direction:row;
-overflow-x:auto;
-border-right:none;
-border-bottom:1px solid #442000;
+position:absolute;
+left:-270px;
+top:0;
+height:100vh;
+z-index:10;
 }
 
-.sidebar h2{
-display:none;
+.sidebar.active{
+left:0;
 }
 
-.menuBtn{
-min-width:180px;
-}
-
-.title{
-font-size:36px;
+.menuToggle{
+display:block;
 }
 
 .topbar h1{
 font-size:22px;
 }
 
+.memory{
+display:none;
+}
+
 .message{
-max-width:90%;
+max-width:95%;
+font-size:15px;
+}
+
+.title{
+font-size:38px;
 }
 
 }
@@ -343,8 +369,6 @@ max-width:90%;
 </head>
 
 <body>
-
-<!-- PARTICLES -->
 
 <div id="particles"></div>
 
@@ -363,7 +387,7 @@ Tool Of The Greatest Author
 </div>
 
 <div class="description">
-The Heavenly Memory Core has awakened. Preserve timelines, analyze cultivation paths, explore hidden lore, and synchronize the entire Sarthak Universe through the Immortal Archive.
+The Heavenly Memory Core has awakened. Preserve timelines, analyze cultivation paths, synchronize chapters, and explore hidden lore across the entire Sarthak Universe.
 </div>
 
 <button class="enterBtn" onclick="enterArchive()">
@@ -376,7 +400,7 @@ Enter The Heavenly Archive →
 
 <div id="app">
 
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
 
 <h2>Immortal Systems</h2>
 
@@ -398,7 +422,15 @@ Enter The Heavenly Archive →
 
 <div class="topbar">
 
+<div class="leftTop">
+
+<button class="menuToggle" onclick="toggleMenu()">
+☰
+</button>
+
 <h1>Heavenly Memory Core</h1>
+
+</div>
 
 <div class="memory">
 12,847 Lore Threads Active
@@ -409,7 +441,13 @@ Enter The Heavenly Archive →
 <div class="chatArea" id="chatArea">
 
 <div class="message ai">
-☯ Welcome back, Sect Master. The Heavenly Archive is awaiting your command.
+
+<div class="avatar">
+☯ Heavenly Memory Core
+</div>
+
+Welcome back, Sect Master. The Heavenly Archive is awaiting your command.
+
 </div>
 
 </div>
@@ -420,6 +458,7 @@ Enter The Heavenly Archive →
 type="text"
 id="userInput"
 placeholder="Ask the Heavenly Archive..."
+onkeypress="handleKey(event)"
 >
 
 <button class="sendBtn" onclick="sendMessage()">
@@ -434,7 +473,7 @@ Send
 
 <script>
 
-/* ENTER */
+/* ENTER ARCHIVE */
 
 function enterArchive(){
 
@@ -444,7 +483,25 @@ document.getElementById("app").style.display="flex";
 
 }
 
-/* SEND */
+/* MOBILE MENU */
+
+function toggleMenu(){
+
+document.getElementById("sidebar").classList.toggle("active");
+
+}
+
+/* ENTER KEY */
+
+function handleKey(event){
+
+if(event.key==="Enter"){
+sendMessage();
+}
+
+}
+
+/* SEND MESSAGE */
 
 function sendMessage(){
 
@@ -462,7 +519,15 @@ const user=document.createElement("div");
 
 user.className="message user";
 
-user.innerText=text;
+user.innerHTML=`
+
+<div class="avatar">
+⚔ Sect Master
+</div>
+
+${text}
+
+`;
 
 chat.appendChild(user);
 
@@ -476,13 +541,21 @@ const typing=document.createElement("div");
 
 typing.className="message ai typing";
 
-typing.innerText="Heavenly Memory Core is analyzing...";
+typing.innerHTML=`
+
+<div class="avatar">
+☯ Heavenly Memory Core
+</div>
+
+Analyzing heavenly records...
+
+`;
 
 chat.appendChild(typing);
 
 chat.scrollTop=chat.scrollHeight;
 
-/* AI RESPONSE */
+/* RESPONSE */
 
 setTimeout(()=>{
 
@@ -492,7 +565,15 @@ const ai=document.createElement("div");
 
 ai.className="message ai";
 
-ai.innerText=getAIResponse(text);
+ai.innerHTML=`
+
+<div class="avatar">
+☯ Heavenly Memory Core
+</div>
+
+${getAIResponse(text)}
+
+`;
 
 chat.appendChild(ai);
 
@@ -502,7 +583,7 @@ chat.scrollTop=chat.scrollHeight;
 
 }
 
-/* FAKE AI */
+/* AI */
 
 function getAIResponse(text){
 
@@ -510,19 +591,25 @@ text=text.toLowerCase();
 
 if(text.includes("king tian long")){
 
-return "King Tian Long has surpassed conventional flame cultivation and now walks a sovereign-level destiny path tied to heavenly authority.";
+return "King Tian Long has transcended ordinary flame cultivation and now walks a sovereign-level path tied to heavenly destiny and spiritual authority.";
 
 }
 
 if(text.includes("shaurya")){
 
-return "Shaurya remains the central existence of the Sarthak Universe timeline. Multiple destiny threads continue converging around his evolution.";
+return "Shaurya remains the central destiny node of the Sarthak Universe. Multiple heavenly threads continue converging around his evolution.";
 
 }
 
 if(text.includes("sect")){
 
-return "The Sanatan Flame Sect continues expanding across higher realms while rebuilding its immortal foundations.";
+return "The Sanatan Flame Sect continues rebuilding its immortal foundations while expanding influence into higher realms.";
+
+}
+
+if(text.includes("lin shu")){
+
+return "Lin Shu possesses one of the most tragic and mysterious destiny paths within the Sarthak Universe timeline.";
 
 }
 
@@ -534,7 +621,7 @@ return "The Heavenly Memory Core has completed analysis of your request. Lore sy
 
 const particles=document.getElementById("particles");
 
-for(let i=0;i<40;i++){
+for(let i=0;i<50;i++){
 
 const p=document.createElement("div");
 
