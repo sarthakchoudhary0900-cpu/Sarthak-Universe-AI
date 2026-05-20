@@ -201,6 +201,7 @@ flex-direction:column;
 height:100vh;
 position:relative;
 overflow:hidden;
+padding-bottom:90px;
 }
 
 .topBar{
@@ -316,15 +317,16 @@ opacity:1;
 /* INPUT */
 
 .inputArea{
-position:absolute;
+position:fixed;
 bottom:0;
-left:0;
+left:250px;
 right:0;
 padding:15px;
 display:flex;
 gap:12px;
 background:rgba(0,0,0,0.95);
 border-top:1px solid rgba(255,140,0,0.2);
+z-index:999;
 }
 
 #messageInput{
@@ -373,6 +375,10 @@ overflow-y:hidden;
 min-width:180px;
 }
 
+  .inputArea{
+left:0;
+  }
+  
 .title{
 font-size:38px;
 }
