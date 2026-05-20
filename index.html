@@ -632,22 +632,33 @@ typing.remove();
 
 console.log(data);
 
-const aiText =
+console.log(data);
 
+let aiText = "";
+
+if(
 data.candidates &&
-data.candidates[0] &&
+data.candidates.length > 0 &&
 data.candidates[0].content &&
 data.candidates[0].content.parts &&
-data.candidates[0].content.parts[0] &&
-data.candidates[0].content.parts[0].text
+data.candidates[0].content.parts.length > 0
+){
 
-?
+aiText =
+data.candidates[0]
+.content.parts[0].text;
 
-data.candidates[0].content.parts[0].text
+}else if(data.error){
 
-:
+aiText =
+"⚠️ " + data.error.message;
 
-"⚠️ Heavenly Memory Core failed to respond.";
+}else{
+
+aiText =
+"⚠️ Unknown response from Heavenly Memory Core.";
+
+}
 
 const aiMsg =
 document.createElement('div');
