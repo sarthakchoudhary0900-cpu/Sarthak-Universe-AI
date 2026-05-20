@@ -1,8 +1,8 @@
-# Sarthak-Universe-AI
-AI-powered novel memory and chat system for the Sarthak Universe.
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -69,7 +69,7 @@ opacity:0;
 
 }
 
-/* WELCOME */
+/* WELCOME SCREEN */
 
 #welcomeScreen{
 position:absolute;
@@ -82,19 +82,20 @@ flex-direction:column;
 text-align:center;
 padding:20px;
 transition:1s;
+z-index:10;
 }
 
 .logo{
-width:100px;
-height:100px;
+width:110px;
+height:110px;
 border-radius:50%;
 border:2px solid orange;
 display:flex;
 justify-content:center;
 align-items:center;
-font-size:45px;
+font-size:50px;
 margin-bottom:25px;
-box-shadow:0 0 25px orange;
+box-shadow:0 0 30px orange;
 animation:pulse 2s infinite;
 }
 
@@ -115,33 +116,33 @@ box-shadow:0 0 10px orange;
 }
 
 .title{
-font-size:48px;
+font-size:52px;
 font-weight:bold;
 color:orange;
 margin-bottom:10px;
 }
 
 .subtitle{
-font-size:20px;
+font-size:22px;
 opacity:0.8;
 margin-bottom:25px;
 }
 
 .desc{
 max-width:700px;
-line-height:1.7;
+line-height:1.8;
 opacity:0.75;
 margin-bottom:40px;
 }
 
 .enterBtn{
-padding:16px 40px;
+padding:18px 45px;
 font-size:18px;
+font-weight:bold;
 background:orange;
 border:none;
 border-radius:14px;
 cursor:pointer;
-font-weight:bold;
 transition:0.3s;
 box-shadow:0 0 20px rgba(255,140,0,0.5);
 }
@@ -150,7 +151,7 @@ box-shadow:0 0 20px rgba(255,140,0,0.5);
 transform:scale(1.05);
 }
 
-/* MAIN */
+/* MAIN APP */
 
 #mainApp{
 display:none;
@@ -162,7 +163,7 @@ width:100%;
 
 .sidebar{
 width:250px;
-background:rgba(0,0,0,0.92);
+background:rgba(0,0,0,0.9);
 border-right:1px solid rgba(255,140,0,0.2);
 padding:20px;
 display:flex;
@@ -199,16 +200,15 @@ display:flex;
 flex-direction:column;
 height:100vh;
 position:relative;
+overflow:hidden;
 }
-
-/* TOP BAR */
 
 .topBar{
 height:70px;
 border-bottom:1px solid rgba(255,140,0,0.2);
 display:flex;
-align-items:center;
 justify-content:space-between;
+align-items:center;
 padding:0 25px;
 background:rgba(0,0,0,0.5);
 backdrop-filter:blur(8px);
@@ -233,7 +233,7 @@ border:1px solid rgba(255,140,0,0.2);
 flex:1;
 overflow-y:auto;
 padding:25px;
-padding-bottom:130px;
+padding-bottom:120px;
 display:flex;
 flex-direction:column;
 gap:20px;
@@ -244,9 +244,9 @@ scroll-behavior:smooth;
 max-width:75%;
 padding:18px;
 border-radius:18px;
-line-height:1.7;
+line-height:1.8;
 animation:fadeIn 0.4s ease;
-backdrop-filter:blur(6px);
+word-wrap:break-word;
 white-space:pre-wrap;
 }
 
@@ -281,7 +281,6 @@ transform:translateY(0);
 .typing{
 display:flex;
 gap:5px;
-padding:5px 0;
 }
 
 .dot{
@@ -317,9 +316,9 @@ opacity:1;
 /* INPUT */
 
 .inputArea{
-position:fixed;
+position:absolute;
 bottom:0;
-left:250px;
+left:0;
 right:0;
 padding:15px;
 display:flex;
@@ -346,6 +345,11 @@ border:none;
 border-radius:14px;
 cursor:pointer;
 font-weight:bold;
+transition:0.3s;
+}
+
+.sendBtn:hover{
+transform:scale(1.05);
 }
 
 /* MOBILE */
@@ -369,10 +373,6 @@ overflow-y:hidden;
 min-width:180px;
 }
 
-.inputArea{
-left:0;
-}
-
 .title{
 font-size:38px;
 }
@@ -384,6 +384,7 @@ font-size:22px;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -392,7 +393,7 @@ font-size:22px;
 
 <script>
 
-for(let i=0;i<55;i++){
+for(let i=0;i<60;i++){
 
 const particle=document.createElement('div');
 
@@ -427,17 +428,13 @@ Tool Of The Greatest Author
 </div>
 
 <div class="desc">
-
-An immortal archive forged to preserve
-the entirety of the Sarthak Universe.
-
+An immortal archive forged to preserve the entirety of the Sarthak Universe.
+Analyze characters, remember chapters, track cultivation realms,
+preserve timelines, and awaken the Heavenly Memory Core.
 </div>
 
-<button class="enterBtn"
-onclick="enterArchive()">
-
+<button class="enterBtn" onclick="enterArchive()">
 Enter The Heavenly Archive →
-
 </button>
 
 </div>
@@ -483,12 +480,9 @@ Gemini AI Connected
 <div class="messages" id="messages">
 
 <div class="message ai">
-
 ☯ Welcome back, Sect Master.
 
-The Heavenly Archive is online
-and awaiting your command.
-
+The Heavenly Archive is online and awaiting your command.
 </div>
 
 </div>
@@ -517,25 +511,16 @@ Send
 
 </div>
 
-<!-- MAIN SCRIPT -->
-
 <script>
 
-/* API KEY */
-
-const API_KEY =
-"AIzaSyCFSCw5Uj8t3At8u23nK1biuq28Vw0A5DE";
-
-/* ENTER */
+/* ENTER ARCHIVE */
 
 function enterArchive(){
 
-const screen=
+const screen =
 document.getElementById('welcomeScreen');
 
 screen.style.opacity='0';
-screen.style.filter='blur(10px)';
-screen.style.transform='scale(1.05)';
 
 setTimeout(()=>{
 
@@ -544,9 +529,17 @@ screen.style.display='none';
 document.getElementById('mainApp')
 .style.display='flex';
 
-},900);
+},700);
 
 }
+
+/* GEMINI */
+
+const API_KEY =
+"AIzaSyCFSCw5Uj8t3At8u23nK1biuq28Vw0A5DE";
+
+const API_URL =
+"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + API_KEY;
 
 /* SEND MESSAGE */
 
@@ -563,7 +556,7 @@ input.value.trim();
 
 if(text==='') return;
 
-/* USER */
+/* USER MESSAGE */
 
 const userMsg =
 document.createElement('div');
@@ -603,49 +596,33 @@ messages.scrollHeight;
 
 try{
 
-/* GEMINI */
+const response =
+await fetch(API_URL,{
 
-const response = await fetch(
-
-const API_URL =
-"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + API_KEY;
-  
-method:"POST",
+method:'POST',
 
 headers:{
-"Content-Type":"application/json"
+'Content-Type':'application/json'
 },
 
 body:JSON.stringify({
 
-contents:[
-{
-parts:[
-{
-text:
-`You are Sarthak Universe AI.
+contents:[{
 
-Respond like a heavenly archive system.
+parts:[{
+text:text
+}]
 
-User:
-${text}`
-}
-]
-}
-]
+}]
 
 })
 
-}
-
-);
+});
 
 const data =
 await response.json();
 
 typing.remove();
-
-/* RESPONSE */
 
 console.log(data);
 
@@ -664,9 +641,7 @@ data.candidates[0].content.parts[0].text
 
 :
 
-JSON.stringify(data);
-
-/* AI MESSAGE */
+"⚠️ Heavenly Memory Core failed to respond.";
 
 const aiMsg =
 document.createElement('div');
@@ -675,13 +650,11 @@ aiMsg.className='message ai';
 
 messages.appendChild(aiMsg);
 
-/* TYPE EFFECT */
-
 let index=0;
 
 function typeEffect(){
 
-if(index < aiText.length){
+if(index<aiText.length){
 
 aiMsg.innerHTML +=
 aiText.charAt(index);
@@ -691,7 +664,7 @@ index++;
 messages.scrollTop=
 messages.scrollHeight;
 
-setTimeout(typeEffect,10);
+setTimeout(typeEffect,15);
 
 }
 
@@ -699,19 +672,23 @@ setTimeout(typeEffect,10);
 
 typeEffect();
 
-}catch(error){
+}
+
+catch(error){
 
 typing.remove();
 
-const err =
+const errorMsg =
 document.createElement('div');
 
-err.className='message ai';
+errorMsg.className='message ai';
 
-err.innerText =
-"⚠️ Connection failed.";
+errorMsg.innerHTML=
+'⚠️ Connection to Heavenly Memory Core failed.';
 
-messages.appendChild(err);
+messages.appendChild(errorMsg);
+
+console.error(error);
 
 }
 
@@ -722,12 +699,10 @@ messages.appendChild(err);
 document
 .getElementById('messageInput')
 
-.addEventListener('keydown',function(e){
+.addEventListener('keypress',function(e){
 
 if(e.key==='Enter'){
-
 sendMessage();
-
 }
 
 });
